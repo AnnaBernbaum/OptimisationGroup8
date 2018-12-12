@@ -1,5 +1,3 @@
-
-
 % Find cost combinations of plate
 
 % Find cost of combinations drum
