@@ -1,8 +1,18 @@
+clc
+close all
+
 % Find cost combinations of plate
+filename = 'Results_combined.xlsx';
+betas = plate_stress_regression(filename);
+all_plate_options = cost_of_plate(betas);
 
 % Find cost of combinations drum
 
+
+
 % Maximum spend is £1 
+
+
 
 % Generate all possible combinations that fall under this price
 
@@ -13,4 +23,6 @@
 % Normalise the 2 data sets
 
 % Weight between the two to give a value
-% Choose the minium value
+
+
+% Choose the minimum value

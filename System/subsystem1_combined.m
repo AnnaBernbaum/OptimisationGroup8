@@ -47,7 +47,7 @@ datapoints = datapoints*3;  % scale to be between 0 and 3 mm
 thickness = [1.93;1.61;2.99;1.32;0.19;0.59;2.55;1.14;2.36;0.84];
 
 % Import FEA results
-filename = 'Results.xlsx';
+filename = 'Results_combined.xlsx';
 [num, raw] = xlsread(filename);
 
 % Empty arrays for data
@@ -110,7 +110,7 @@ beta0 = [2,6,8,30];  % Guesses
 opts = statset('nlinfit');
 opts.RobustWgtFun = 'bisquare';  % ignore outliers
 
-% Regression model for each material
+% Regression model for each material thicknesss and stress
 steelbeta = nlinfit(training.thickness, training.steel, modelfun, beta0);
 aluminiumbeta = nlinfit(training.thickness, training.aluminium, modelfun, beta0);
 zincbeta = nlinfit(training.thickness, training.zinc, modelfun, beta0);
