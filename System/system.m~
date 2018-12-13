@@ -1,6 +1,5 @@
 clc
 close all
-clear all
 
 % Find cost combinations of plate
 filename = 'subsystem1_results.xlsx';
@@ -16,6 +15,10 @@ all_drum_options = cost_of_drum(betas);
 % Maximum spend is £1 
 prices_plate = all_plate_options{:,3};
 prices_drum = all_drum_options{:,3};
+% combvec(prices_plate, prices_drum)
+% [A,B] = meshgrid(prices_plate,prices_drum);
+% c=cat(2,A',B');
+% all_options=reshape(c,[],2);
 
 % Find all options under £3
 total_costs = [];
@@ -42,20 +45,20 @@ drum_v = str2double(total_costs(:,4));
 heat_flux_scaled = rescale(heat_flux);
 drum_v_scaled = rescale(drum_v);
 
-weights = [];
+
 % Find option with best drying efficiency
 for r = 1:length(total_costs)
     heat_flux_current = heat_flux_scaled(r);
     drum_speed_current = drum_v_scaled(r);
     
     %Weights
-    weight = -0.5*heat_flux_current + 0.5*drum_speed_current;
-    weights = [weights; weight];
+    weight = 0.5*heat_flux_current + 0.5*drum_speed_current
+    
     %store
 
 end
 
-all = [total_costs weights];
+    new_row = [total_costs weight];
 
-sorted = sortrows(all, 10);
+
 % Choose the minimum value

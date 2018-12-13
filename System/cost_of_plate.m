@@ -36,7 +36,7 @@ function [multi_objective_pass] = cost_of_plate(betas)
     multi_objective_fail = table();
 
     % Optimised parameters from subsystem optimisation
-    Theater = 369.15;
+    Theater = 680.15;
     v = 15;
     LAir = 0;
     r = 0.225;  % m

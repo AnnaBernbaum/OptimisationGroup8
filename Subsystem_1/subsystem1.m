@@ -111,10 +111,10 @@ opts = statset('nlinfit');
 opts.RobustWgtFun = 'bisquare';  % ignore outliers
 
 % Regression model for each material
-steelbeta = nlinfit(training.thickness, training.steel, modelfun, beta0);
-aluminiumbeta = nlinfit(training.thickness, training.aluminium, modelfun, beta0);
-zincbeta = nlinfit(training.thickness, training.zinc, modelfun, beta0);
-magnesiumbeta = nlinfit(training.thickness, training.magnesium, modelfun, beta0);
+steelbeta = fitnlm(training.thickness, training.steel, modelfun, beta0)
+aluminiumbeta = fitnlm(training.thickness, training.aluminium, modelfun, beta0)
+zincbeta = fitnlm(training.thickness, training.zinc, modelfun, beta0)
+magnesiumbeta = fitnlm(training.thickness, training.magnesium, modelfun, beta0)
 
 % Find optimal thickness of each metal
 safety_factor = 2;
@@ -123,10 +123,10 @@ safety_factor = 2;
 reversemodelfun = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
 
 % Find minimum value of x to satisfy constraint g5
-t_steel = reversemodelfun(steelbeta, (yield_strength_steel*2));
-t_aluminium = reversemodelfun(aluminiumbeta, yield_strength_aluminium*2);
-t_zinc = reversemodelfun(zincbeta, yield_strength_zinc*2);
-t_magnesium = reversemodelfun(magnesiumbeta, yield_strength_magnesium*2);
+t_steel = reversemodelfun(steelbeta.Coefficients.Estimate, (yield_strength_steel*2));
+t_aluminium = reversemodelfun(aluminiumbeta.Coefficients.Estimate, yield_strength_aluminium*2);
+t_zinc = reversemodelfun(zincbeta.Coefficients.Estimate, yield_strength_zinc*2);
+t_magnesium = reversemodelfun(magnesiumbeta.Coefficients.Estimate, yield_strength_magnesium*2);
 thicknesses = [t_steel, t_aluminium, t_zinc, t_magnesium];
 
 % Calculate ratios
@@ -135,46 +135,30 @@ ratio_aluminium = (t_aluminium/1000)/k_aluminium;
 ratio_zinc = (t_zinc/1000)/k_zinc; 
 ratio_magnesium = (t_magnesium/1000)/k_magnesium; 
 
-% Calculate quality of fit
+% Plot regression models and training and test data
 x = 0:0.01:3;
 figure(1)
 
-model_steel = modelfun(steelbeta, test.thickness);
-mse = immse(test.steel, model_steel);
-rmse_steel = sqrt(mse);
-
-model_aluminium = modelfun(aluminiumbeta, test.thickness);
-mse = immse(test.aluminium, model_aluminium);
-rmse_aluminium = sqrt(mse);
-
-model_zinc = modelfun(zincbeta, test.thickness);
-mse = immse(test.zinc, model_zinc);
-rmse_zinc = sqrt(mse);
-
-model_magnesium = modelfun(magnesiumbeta, test.thickness);
-mse = immse(test.magnesium, model_magnesium);
-rmse_magnesium = sqrt(mse);
-
-% Plot regression models and training and test data
 subplot(2,2,1)
 scatter(training.thickness, training.steel)  % Training points
 hold on 
 scatter(test.thickness, test.steel)  % Test points
 hold on
-plot(x, modelfun(steelbeta, x))  % Model
+plot(x, modelfun(steelbeta.Coefficients.Estimate, x))  % Model
 hold on
 plot(linspace(0,3), ones(100)*2*yield_strength_steel, 'g')
 title('Steel')
 xlabel('Thickness (mm)')
 ylabel('Maximum von Mises Stress (MPa)')
 legend('Training', 'Test', 'Model', 'Steel Yield Strength')
+axis([0 3 0 1200])
 
 subplot(2,2,2)
 scatter(training.thickness, training.aluminium)
 hold on 
 scatter(test.thickness, test.aluminium)
 hold on
-plot(x, modelfun(aluminiumbeta, x))
+plot(x, modelfun(aluminiumbeta.Coefficients.Estimate, x))
 hold on
 plot(linspace(0,3), ones(100)*2*yield_strength_aluminium, 'g')
 title('Aluminium')
@@ -187,7 +171,7 @@ scatter(training.thickness, training.zinc)
 hold on 
 scatter(test.thickness, test.zinc)
 hold on
-plot(x, modelfun(zincbeta, x))
+plot(x, modelfun(zincbeta.Coefficients.Estimate, x))
 hold on
 plot(linspace(0,3), ones(100)*2*yield_strength_zinc, 'g')
 title('Zinc')
@@ -200,7 +184,7 @@ scatter(training.thickness, training.magnesium)
 hold on 
 scatter(test.thickness, test.magnesium)
 hold on
-plot(x, modelfun(magnesiumbeta, x))
+plot(x, modelfun(magnesiumbeta.Coefficients.Estimate, x))
 hold on
 plot(linspace(0,3), ones(100)*2*yield_strength_magnesium, 'g')
 title('Magnesium')
@@ -212,14 +196,14 @@ legend('Training', 'Test', 'Model', 'Magnesium Yield Strength')
 %% Subsystem Optimisation
 
 % set initial guesses
-Theaterguess = 350; % Degrees K
+Theaterguess = 600; % Degrees K
 vguess = 10; % m/s
 LAirguess = 0.04; %m
 x0 = [Theaterguess vguess LAirguess];
 
 % Bounds
 lb = [-Inf, 0, 0];
-ub = [369.15, 15, Inf];
+ub = [680.15, 15, Inf];
 
 %%%% Fmincon optimisation with interior point %%%%
 options = optimoptions('fmincon', 'Algorithm','interior-point');
@@ -255,7 +239,7 @@ x_opt_sqp = x_opts(I_sqp,:);
 
 % Bounds
 lb = [-Inf, 0, 0, 1];
-ub = [369.15, 15, Inf, 4];
+ub = [680.15, 15, Inf, 4];
 ratios = [ratio_steel, ratio_aluminium, ratio_zinc, ratio_magnesium];
 
 tic % start timer
@@ -266,7 +250,7 @@ opt_material_ga = materials(x_opt_ga(4)); % Find optimum material
 
 %%%% Check it is a Global optimum %%%%
 lb = [-Inf, 0, 0];
-ub = [369.15, 15, Inf];
+ub = [680.15, 15, Inf];
 
 options = 'sqp';
 [x_opt_steel_global,q_steel_global] = optimise_fmincon_global(ratio_steel, x0, lb, ub, options);
@@ -286,13 +270,14 @@ Theater = x_opt_sqp(1);
 v = x_opt_sqp(2);
 LAir = x_opt_sqp(3);
 r = 0.225;  % m
-thickness_range = 0:0.1:3;
-betas = [steelbeta; aluminiumbeta; zincbeta; magnesiumbeta];
+thickness_range = 0:0.1:1;
+betas = [steelbeta.Coefficients.Estimate, aluminiumbeta.Coefficients.Estimate, zincbeta.Coefficients.Estimate, magnesiumbeta.Coefficients.Estimate];
 
 for x = 1:length(thickness_range)
     for i = 1:length(materials)
+        
         % Find stress
-        current_beta = betas(i,:);
+        current_beta = betas(:,i);
         current_stress = modelfun(current_beta, thickness_range(x));
         
         % Find heat flux    
@@ -325,7 +310,7 @@ scatter(multi_objective_pass{:,4}, multi_objective_pass{:,3})  % Cost v heatflux
 hold on
 scatter(multi_objective_fail{:,4}, multi_objective_fail{:,3})
 hold on
-plot(-441.4738,0.2717,'k.','MarkerSize',20);  % Highlight Pareto Set
+plot(-3984.657,0.2717,'k.','MarkerSize',20);  % Highlight Pareto Set
 grid on
 ylabel('Cost (£)')
 xlabel('Heat Flux (W/m^2)')
