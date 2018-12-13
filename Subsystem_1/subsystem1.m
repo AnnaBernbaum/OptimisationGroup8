@@ -17,7 +17,8 @@ k_magnesium = 160;
 ks = [k_steel, k_aluminium, k_zinc, k_magnesium];
 
 % material cost per unit (average upper and lowed bounds)
-steel_cost =  (0.531 + 0.577)/2; % GBP per kg
+ % GBP per kg
+steel_cost = (0.531 + 0.577)/2; % GBP per kg
 aluminium_cost = (1.51 + 1.62)/2;
 zinc_cost = (1.75 + 2.42)/2;
 magnesium_cost = (1.9 + 2.12)/2;
@@ -330,7 +331,7 @@ ga_improvement = ((abs(q_opt_ga)- abs(q_original))/abs(q_original))*100;
 original_vol = thickness_original * pi * r^2;
 original_mass = steel_density * original_vol;
 cost_original = original_mass * steel_cost;
-cost_improvement = (abs(cost_original)-(abs(0.2717))/abs(cost_original))*100;
+cost_improvement = ((cost_original)-((0.2717))/(cost_original))*100;
 
 
 % Show table of results
