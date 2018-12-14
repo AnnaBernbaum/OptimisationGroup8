@@ -166,7 +166,7 @@ legend({"Data points","Regression model","Material yield strength = 35.9"},'font
 % Initiate table for results
 data = table();
 
-% Array for looping through materials/radii and their values
+% Arrays for looping through materials/radii and their values
 materials = ["Aluminium","ABS","Copper","Zinc-Aluminium Alloy"];
 radii = [0:0.1:1.5];
 price = [1.62 2.25 4.48 2.42];
@@ -204,7 +204,7 @@ for x = 1:length(materials)
         r_d = 0.28+(i/1000);
         omega_d = (r_p*omega_p)/r_d;
    
-        % Add the result from current iteration to data array 
+        % Add the results from current iteration to data array 
         new_row = {current_material, radius_current, cost, omega_d};
         
         % But only the solutions that are successful 
