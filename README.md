@@ -1,63 +1,23 @@
 DE4 Opti Coursework 2018/19: Code Submission
 ============
-This repository is a simple example/shell of how we expect the source code for
-your coursework to be submitted. 
+This repository contains the code and SolidWorks files for Anna Bernbaum and Ina Roll Backe's (Group 8) optimisation project. 
 
-Instructions
+The System
 ----------
-
-**All submissions should be via e-mail with link to a git repository that can be cloned.**
-
-**The deadline for source code submission is 4pm on Friday 14th December**
-
-Ensure that your code can be executed to reproduce the numerical (where
-deterministic, otherwise explained) and graphical results provided in your
-reports at the system and subsystem levels. Please use the following directory
-structure:  
+A tumble dryer is an electrical appliance commonly found in homes. It is used to dry clothes by removing moisture through evaporation and centrifugal force. This optimisation problem aims to minimise the cost and maximise the drying efficiency of the tumble dryer, through a multi-objective formulation. 
+The problem was split into two subsystems, the first of which aimed to optimise the heating element. Nonlinear solvers found that the optimum transferred heat flux was 3985 W/m2, a 150 % increase on the unoptimized problem and multi-objective methods reduced the cost by 30.6 %.
+The second subsystem looked at the belt drive, maximising the angular velocity of the drum. The drum was modelled as a sub-subsystem and a non-linear regression model was fit to data points collected from a finite element analysis. The latter was used to identify optimal material selection and thickness, increasing the speed of the drum by 45%.
+The overall, system level optimisation accounted for cost and drying efficiency, finding all combinations of drums and sheets that would cost under £3, and then selecting the best of these for drying efficiency through a weighted equation. This found the optimum heat flux to be 3984 W/m2, drum speed of 61.5 RPM, making a total cost of £2.93, a 67 % improvement on the unoptimized problem.
 
 Directory Structure
 -----------
 1. System
-2. Subsystem_1
-3. Subsystem_2
+2. Subsystem_1: The Heating Element
+3. Subsystem_2: The Belt Drive
 
-The System directory should contain all necessary code and files to reproduce
+The System directory contains all necessary code and files to reproduce
 the results presented for the System optimisation (i.e. Group). 
 
-The Subsystem_x folders should contain all necessary code and files such that
+The Subsystem_x folders contain all necessary code and files such that
 the results for the stand-alone subsystem optimisations that you have worked on
 individually can be reproduced. 
-
-**NOTE:** The Subsystem_x directories are significantly more important than 
-System on an individual basis. Students take sole responsibility for ensuring quality and accuracy of their Subsystem directories.
-
-Executing the Code
-----------
-Create a README for each of the directories containing the following
-information: 
-
-1. List any software/library prerequisites/dependencies needed to run the code
-2. Specify the main script 
-3. Provide an indication of the typical performance (e.g. execution time, with
-indication of processor and operating system)
-
-Open Source or Private 
-----------
-You have an opportunity to create a web page in support of your project. You may already have a digital portfolio, which you are free to use, or you can simply follow
-the instructions to add a [GitHub Page](https://pages.github.com) if this would be more convenient. 
-
-This has the added advantage of allowing you to showcase your work to the world
-and complement your digital portfolio(s). You may use this opportunity to include
-any high quality images/CAD drawings or simulations/videos that might not be suitable for inclusion
-in your reports.
-
-If you choose to do this, we also recommend that you upload a copy of your final
-report to your public repository to place everything in context.
-
-If you would prefer your project to be private, please create a private git repository and provide access to [David](<mailto:david.boyle@imperial.ac.uk>)
-and [Nan](<mailto:n.li09@imperial.ac.uk>).
-
-In the case of a private repository, you may still include additional material
-in support of your project.
-
-**NOTE:** You may use *any* git service of your choosing! 
