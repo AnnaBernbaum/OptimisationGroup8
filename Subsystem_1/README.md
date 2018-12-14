@@ -1,4 +1,4 @@
-This is the README for the Subsystem_1
+This is the README for the Subsystem 1: The Heating Element
 =======
 
 This Subsystem aims to optimise the heating element subsystem of a front-loading tumble dryer.
