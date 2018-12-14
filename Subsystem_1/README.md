@@ -5,11 +5,11 @@ This Subsystem aims to optimise the heating element subsystem of a front-loading
 
 Main script 
 -------
-The subsystem1.m MATLAB script should be run
+The subsystem1.m MATLAB script should be run. It prints out the results from the 3 solvers used.
 
 Execution time
 -------
-The execution time is approximately XX seconds
+The execution time is approximately 1.9 seconds
 
 Dependencies
 -------

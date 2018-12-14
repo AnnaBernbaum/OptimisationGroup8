@@ -12,6 +12,7 @@ filename = 'subsystem2_results.csv';
 betas = drum_stress_regression(filename);
 all_drum_options = cost_of_drum(betas);
 
+
 % Maximum spend is £1 
 prices_plate = all_plate_options{:,3};
 prices_drum = all_drum_options{:,3};
@@ -57,6 +58,6 @@ end
 all = [total_costs weights];
 
 sorted = sortrows(all, 10);
-top = sorted(1,:);
-headings = ["Drum Material", "Drum thickness (mm)", "Drum Cost (£)", "Drum Speed (RPM)", "Plate Material", "Plate Thickness (m)", "Plate Cost (£)", "Heat Flux (W/m2)", "Total Cost (£)", "Weighting"];
-optimum = [headings; top]
+optimum = sorted(1,:)
+headings = ['Drum Material', ']
+

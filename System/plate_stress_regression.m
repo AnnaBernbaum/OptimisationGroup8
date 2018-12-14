@@ -54,8 +54,8 @@ function betas = plate_stress_regression(filename)
 
     splitPt1 = floor(0.75*height(raw));  % Case 1 split point
 
-    training = shuffled_raw(1:splitPt1,:);
-    test = shuffled_raw(splitPt1+1:end,:);
+    training = shuffled_raw(1:splitPt1,:); % Training 
+    test = shuffled_raw(splitPt1+1:end,:); % Test
 
     % Regression Models using training data
 

@@ -56,8 +56,7 @@ function [multi_objective_pass] = cost_of_plate(betas)
 
             % Append data
             newrow = {current_material, current_thickness, material_cost, heatflux};
-            
-            % Check yield strength
+
             if  current_stress < safety_factor * yield_strengths(i)
                 multi_objective_pass = [multi_objective_pass; newrow];
 
