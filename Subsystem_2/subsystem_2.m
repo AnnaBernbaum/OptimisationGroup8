@@ -2,7 +2,7 @@ close all
 clear all
 
 
-%% Material 1, 1060 Alloy
+%% Material 1 - 1060 Alloy
 
 syms yield_all
 
@@ -82,7 +82,7 @@ plot(X_abs, modelfun(result_abs, X_abs))
 fplot(subs(yield_abs,35), xinterval)
 legend({"Data points","Regression model","Material yield strength = 35 MPa"},'fontsize',18)
 
-%% Copper
+%% Material 3 - Copper Alloy
 
 syms yield_cop
 
@@ -121,7 +121,7 @@ plot(X_cop, modelfun(result_cop, X_cop))
 fplot(subs(yield_cop,34), xinterval)
 legend({"Data points","Regression model","Material yield strength = 34 MPa"},'fontsize',18)
 
-%% Zinc
+%% Zinc Alloy
 
 syms yield_zin
 
