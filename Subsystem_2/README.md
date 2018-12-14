@@ -1,17 +1,19 @@
-This is the README for the Subsystem_2
+This is the README for the Subsystem_2: Belt Drive
 =======
 
-*Example ... Please chage to suit your own system*
+This subsystem aims to optimise the speed of the drum through finding the optimal thickness and material selection.
 
 
-Main script 
+Main script
 -------
-The subsystem_2.m MATLAB script should be run
+The subsystem_2.m MATLAB script should be run for the non-linear regression
+The optimisation_fmincon scrip should be run for the initial optimisation
 
 Execution time
 -------
-The execution time is approximately XX seconds
+The execution time of subsystem_2.m is approximately 6.57 seconds
+The execution time of optimisation_fmincon is approximately 1.72 seconds
 
 Dependencies
 -------
-The script requires only MATLAB_R2018A
+The scripts requires MATLAB_R2018A with the Optimisation Toolbox installed.

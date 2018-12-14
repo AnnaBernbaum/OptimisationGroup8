@@ -1,6 +1,7 @@
 close all
 clear all
 
+tic
 
 %% Material 1 - 1060 Alloy
 
@@ -215,4 +216,5 @@ for x = 1:length(materials)
     end
 end
 
-
+toc 
+t = toc
