@@ -9,7 +9,7 @@ The subsystem1.m MATLAB script should be run. It prints out the results from the
 
 Execution time
 -------
-The execution time is approximately 1.9 seconds
+The execution time is approximately 2.4 seconds (Recorded with 2.7 GHz Intel Core i7). 
 
 Dependencies
 -------
