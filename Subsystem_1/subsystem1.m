@@ -321,7 +321,7 @@ fmincon_improvement_sqp = ((abs(q_opt_fmincon_sqp)-abs(q_original))/abs(q_origin
 ga_improvement = ((abs(q_opt_ga)- abs(q_original))/abs(q_original))*100;
 
 original_vol = thickness_original * pi * r^2;
-original_mass = steel_density * original_vol;
+original_mass = densities(1) * original_vol;
 cost_original = original_mass * steel_cost;
 cost_improvement = ((cost_original)-((0.2717))/(cost_original))*100 % percent
 
