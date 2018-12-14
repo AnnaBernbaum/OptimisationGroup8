@@ -1,3 +1,4 @@
+tic
 clc
 close all
 clear all
@@ -60,3 +61,4 @@ sorted = sortrows(all, 10);
 top = sorted(1,:);
 headings = ["Drum Material", "Drum thickness (mm)", "Drum Cost (£)", "Drum Speed (RPM)", "Plate Material", "Plate Thickness (m)", "Plate Cost (£)", "Heat Flux (W/m2)", "Total Cost (£)", "Weighting"];
 optimum = [headings; top]
+toc
