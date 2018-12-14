@@ -9,7 +9,7 @@ The system.m MATLAB script should be run. It will print the optimum result.
 
 Execution time
 -------
-The execution time is approximately 2.56 seconds
+The execution time is approximately 5.95 seconds on a 2.7 GHz Intel Core i7 processor.
 
 Dependencies
 -------
