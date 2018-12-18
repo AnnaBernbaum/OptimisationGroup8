@@ -19,7 +19,7 @@ function betas = drum_stress_regression(filename)
     % Find the minimum thickness for where the material fails
     y_all = 27.5;
     reversemodelfun_all = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-    radius_all = reversemodelfun_all(result_all, y_all);
+    thickness_all = reversemodelfun_all(result_all, y_all);
 
     % Material 2 - ABS
     syms yield_abs
@@ -40,7 +40,7 @@ function betas = drum_stress_regression(filename)
     % Find the minimum thickness for where the material fails
     y_abs = 35;
     reversemodelfun_abs = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-    radius_abs = reversemodelfun_abs(result_abs, y_abs);
+    thickness_abs = reversemodelfun_abs(result_abs, y_abs);
 
 
     % Material 3 - Copper Alloy
@@ -62,7 +62,7 @@ function betas = drum_stress_regression(filename)
     % Find the minimum thickness for where the material fails
     y_cop = 34;
     reversemodelfun_cop = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-    radius_cop = reversemodelfun_cop(result_cop, y_cop);
+    thickness_cop = reversemodelfun_cop(result_cop, y_cop);
 
     % Material 4 - Zinc Alloy
     syms yield_zin
@@ -83,7 +83,7 @@ function betas = drum_stress_regression(filename)
     % Find the minimum thickness for where the material fails
     y_zin = 35.9;
     reversemodelfun_zin = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-    radius_zin = reversemodelfun_zin(result_zin, y_zin);
+    thickness_zin = reversemodelfun_zin(result_zin, y_zin);
     
     betas = [result_all result_abs result_cop result_zin];
 end

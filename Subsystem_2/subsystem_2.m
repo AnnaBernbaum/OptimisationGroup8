@@ -35,7 +35,7 @@ ylabel("Max Von Mises Stress (MPa)",'fontsize',16);
 % Find the minimum thickness for where the material fails
 y_all = 27.5;
 reversemodelfun_all = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-radius_all = reversemodelfun_all(result_all, y_all)
+thickness_all = reversemodelfun_all(result_all, y_all)
 
 % Plotting the regresstion and line for the material yield strength
 xinterval = [0.25 1.375];
@@ -74,7 +74,7 @@ ylabel("Max Von Mises Stress (MPa)",'fontsize',16);
 % Find the minimum thickness for where the material fails
 y_abs = 35;
 reversemodelfun_abs = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-radius_abs = reversemodelfun_abs(result_abs, y_abs)
+thickness_abs = reversemodelfun_abs(result_abs, y_abs)
 
 % Plotting the regresstion and line for the material yield strength
 xinterval = [0.25 1.375];
@@ -106,7 +106,7 @@ result_cop = beta_cop.Coefficients.Estimate;
 % Find the minimum thickness for where the material fails
 y_cop = 34;
 reversemodelfun_cop = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-radius_cop = reversemodelfun_cop(result_cop, y_cop)
+thickness_cop = reversemodelfun_cop(result_cop, y_cop)
 
 % Plot the datapoints
 subplot(2,2,3);
@@ -145,7 +145,7 @@ result_zin = beta_zin.Coefficients.Estimate;
 % Find the minimum thickness for where the material fails
 y_zin = 35.9;
 reversemodelfun_zin = @(b,f)((log((f - b(4))/b(1))-b(3))/(-b(2)));
-radius_zin = reversemodelfun_zin(result_zin, y_zin)
+thickness_zin = reversemodelfun_zin(result_zin, y_zin)
 
 % Plot the datapoints
 subplot(2,2,4);
@@ -168,7 +168,7 @@ data = table();
 
 % Arrays for looping through materials/radii and their values
 materials = ["Aluminium","ABS","Copper","Zinc-Aluminium Alloy"];
-radii = [0:0.1:1.5];
+thickness = [0:0.1:1.5];
 price = [1.62 2.25 4.48 2.42];
 density = [2900 1213 8943 7000];
 yield_max = [27.5 35 34  35.9];
@@ -178,18 +178,18 @@ betas = [result_all result_abs result_cop result_zin];
 
 % Looping through each combination of materials and radii 
 for x = 1:length(materials)
-    for i = 1:length(radii)
+    for i = 1:length(thickness)
         
         % Finding the current values for each iteration
         current_material = materials(x);
-        radius_current = radii(i);
+        thickness_current = thickness(i);
         current_beta = betas(:,x);
-        current_stress = modelfun(current_beta,radius_current);
+        current_stress = modelfun(current_beta,thickness_current);
         
         % Calculating the volume for current iteration
-        area = (pi()*(0.28+(radius_current/1000))^2) - (pi()*0.28^2);
+        area = (pi()*(0.28+(thickness_current/1000))^2) - (pi()*0.28^2);
         cylinder = area*0.4;
-        sides = (pi()*(0.28+(radius_current/1000))^2)*(radius_current/1000);
+        sides = (pi()*(0.28+(thickness_current/1000))^2)*(thickness_current/1000);
         volume = cylinder + sides;
         
         % Calculating the cost for current iteration
@@ -205,7 +205,7 @@ for x = 1:length(materials)
         omega_d = (r_p*omega_p)/r_d;
    
         % Add the results from current iteration to data array 
-        new_row = {current_material, radius_current, cost, omega_d};
+        new_row = {current_material, thickness_current, cost, omega_d};
         
         % But only the solutions that are successful 
         if current_stress < yield_max(x)
