@@ -166,7 +166,7 @@ legend({"Data points","Regression model","Material yield strength = 35.9"},'font
 % Initiate table for results
 data = table();
 
-% Arrays for looping through materials/radii and their values
+% Arrays for looping through materials/thicknesses and respective values
 materials = ["Aluminium","ABS","Copper","Zinc-Aluminium Alloy"];
 thickness = [0:0.1:1.5];
 price = [1.62 2.25 4.48 2.42];
@@ -176,7 +176,7 @@ yield_max = [27.5 35 34  35.9];
 % Fetch the beta values from each regression model
 betas = [result_all result_abs result_cop result_zin];
 
-% Looping through each combination of materials and radii 
+% Looping through each combination of materials and thicknesses 
 for x = 1:length(materials)
     for i = 1:length(thickness)
         

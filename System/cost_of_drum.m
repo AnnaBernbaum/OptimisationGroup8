@@ -3,7 +3,7 @@ function [data] = cost_of_drum(betas)
     % Initiate table for results
     data = table();
     
-    % Arrays for looping through materials/radii and their values
+    % Arrays for looping through materials/thicknesses and their values
     materials = ["Aluminium","ABS","Copper","Zinc-Aluminium Alloy"];
     thicknesses = [0:0.1:1.5];
     price = [1.62 2.25 4.48 2.42];
@@ -11,7 +11,7 @@ function [data] = cost_of_drum(betas)
     yield_max = [27.5 35 34  35.9];
     modelfun = @(b,x)(b(1)*exp((-b(2)*x)+b(3))+b(4));
 
-    % Looping through each combination of materials and radii 
+    % Looping through each combination of materials and thicknesses 
     for x = 1:length(materials)
         for i = 1:length(thicknesses)
             
